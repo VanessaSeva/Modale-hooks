@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import './App.css'
+import Modale from './Composants/Modale'
 
 function App() {
+
+    const [toggleModale, setToggleModale] = useState(false)
+
+    const closeModale = (e) => {
+      console.log(e.target.className);
+      if(e.target.className === "contenu")return;
+      setToggleModale(false)
+
+    }
+    const stopPropa = (e) => {
+      e.stopPropagation();
+    }
+    const openModale = () => {
+      setToggleModale(true)
+    }
+
+
+    let theModale = '';
+
+    if(toggleModale){
+      theModale = <Modale closeFunc={closeModale} openFunc={openModale} stopPropa={stopPropa}/>
+    } else {
+      theModale = '';
+    }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={openModale}>OPEN</button>
+      {theModale}
     </div>
   );
 }
